@@ -20,6 +20,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+	testImplementation("com.appmattus.fixture:fixture:1.2.0")
+	testImplementation("com.ninja-squad:springmockk:4.0.2")
+	testImplementation("io.mockk:mockk:1.13.2")
 }
 
 tasks.withType<KotlinCompile> {
