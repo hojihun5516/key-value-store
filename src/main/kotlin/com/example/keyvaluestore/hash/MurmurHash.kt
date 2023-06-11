@@ -1,12 +1,15 @@
 package com.example.keyvaluestore.hash
 
+import org.springframework.stereotype.Component
+
 /**
  * Murmur hash 3.0.
  *
  *
  * It works as the same as lastguest\Murmur in PHP in limited test data.
  */
-class MurmurHash: Hash{
+@Component
+class MurmurHash : Hash {
     /**
      * @param key Text to hash.
      * @param seed   Positive integer only
@@ -85,7 +88,7 @@ class MurmurHash: Hash{
         return h1
     }
 
-    private fun padKey(key:String): String {
+    private fun padKey(key: String): String {
         var modifiedKey = key
         while (modifiedKey.length < 7) {
             modifiedKey += " "
