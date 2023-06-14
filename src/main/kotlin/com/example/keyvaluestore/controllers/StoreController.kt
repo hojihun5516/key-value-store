@@ -2,6 +2,9 @@ package com.example.keyvaluestore.controllers
 
 import com.example.keyvaluestore.dtos.KeyValueStoreDto
 import com.example.keyvaluestore.dtos.StoreUpsertRequestDto
+import com.example.keyvaluestore.services.StoreDeleteService
+import com.example.keyvaluestore.services.StoreGetService
+import com.example.keyvaluestore.services.StoreUpsertService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class StoreController(
+    private val storeUpsertService: StoreUpsertService,
+    private val storeGetService: StoreGetService,
+    private val storeDeleteService: StoreDeleteService,
 ) {
     @PutMapping(
         "/store/{key}",
@@ -22,7 +28,12 @@ class StoreController(
         @PathVariable key: String,
         @RequestBody storeUpsertRequestDto: StoreUpsertRequestDto,
     ): KeyValueStoreDto {
-        return TODO("Provide the return value")
+        return storeUpsertService.upsert(
+            keyValueStoreDto = KeyValueStoreDto(
+                key = key,
+                value = storeUpsertRequestDto.value
+            )
+        )
     }
 
     @GetMapping(
@@ -33,7 +44,7 @@ class StoreController(
     fun get(
         @PathVariable key: String,
     ): KeyValueStoreDto {
-        return TODO("Provide the return value")
+        return storeGetService.get(key)
     }
 
 
@@ -44,7 +55,7 @@ class StoreController(
     )
     fun delete(
         @PathVariable key: String,
-    ): KeyValueStoreDto {
-        return TODO("Provide the return value")
+    ) {
+        storeDeleteService.delete(key)
     }
 }
