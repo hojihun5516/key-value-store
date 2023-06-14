@@ -15,6 +15,12 @@ class ConsistenceHashMap(
         createCirCle()
     }
 
+    fun getVirtualNode(key: String): VirtualNode {
+        val hash = hash.hash(key)
+        return circle.entries.firstOrNull { it.key >= hash }?.value
+            ?: circle.entries.first().value
+    }
+
     private fun createCirCle() {
         for (i in 0 until numberOfVirtualNode) {
             val id = UUID.randomUUID().toString()
