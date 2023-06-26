@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class KeyValueStoreApplication
+class ProxyApplication
 
 fun main(args: Array<String>) {
-	runApplication<KeyValueStoreApplication>(*args)
+	runApplication<ProxyApplication>(*args)
 }
