@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ServicediscoveryApplication
+class ServiceDiscoveryApplication
 
 fun main(args: Array<String>) {
-    runApplication<ServicediscoveryApplication>(*args)
+    runApplication<ServiceDiscoveryApplication>(*args)
 }
