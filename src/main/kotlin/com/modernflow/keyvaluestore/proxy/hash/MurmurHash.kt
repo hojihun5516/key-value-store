@@ -1,4 +1,4 @@
-package com.example.keyvaluestore.hash
+package com.modernflow.keyvaluestore.proxy.hash
 
 import com.google.common.hash.Hashing
 import org.springframework.stereotype.Component

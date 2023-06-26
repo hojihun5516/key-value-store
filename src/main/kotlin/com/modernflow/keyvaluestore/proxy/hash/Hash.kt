@@ -1,4 +1,4 @@
-package com.example.keyvaluestore.hash
+package com.modernflow.keyvaluestore.proxy.hash
 
 interface Hash {
     fun hash(key: String): Long

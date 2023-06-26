@@ -1,4 +1,4 @@
-package com.example.keyvaluestore.support
+package com.modernflow.keyvaluestore.proxy.support
 
 import com.appmattus.kotlinfixture.config.range
 import com.appmattus.kotlinfixture.decorator.nullability.NeverNullStrategy
