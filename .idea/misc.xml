@@ -4,6 +4,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/Proxy" />
     <file type="web" url="file://$PROJECT_DIR$/ServiceDiscovery" />
+    <file type="web" url="file://$PROJECT_DIR$/Store" />
   </component>
   <component name="ProjectRootManager">
     <output url="file://$PROJECT_DIR$/out" />
