@@ -1,4 +1,4 @@
-package com.example.keyvaluestore.store
+package com.modernflow.keyvaluestore.proxy.store
 
 data class VirtualNode(
     val id: String,

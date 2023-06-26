@@ -1,6 +1,6 @@
-package com.example.keyvaluestore.services
+package com.modernflow.keyvaluestore.proxy.services
 
-import com.example.keyvaluestore.store.ConsistenceHashMap
+import com.modernflow.keyvaluestore.proxy.store.ConsistenceHashMap
 import org.springframework.stereotype.Service
 
 @Service

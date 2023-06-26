@@ -1,4 +1,4 @@
-package com.example.keyvaluestore
+package com.modernflow.keyvaluestore.proxy
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

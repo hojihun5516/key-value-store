@@ -1,4 +1,4 @@
-package com.example.keyvaluestore.hash
+package com.modernflow.keyvaluestore.proxy.hash
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName

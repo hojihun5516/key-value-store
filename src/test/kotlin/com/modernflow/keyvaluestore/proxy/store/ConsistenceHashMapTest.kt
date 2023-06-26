@@ -1,6 +1,6 @@
-package com.example.keyvaluestore.store
+package com.modernflow.keyvaluestore.proxy.store
 
-import com.example.keyvaluestore.hash.Hash
+import com.modernflow.keyvaluestore.proxy.hash.Hash
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension

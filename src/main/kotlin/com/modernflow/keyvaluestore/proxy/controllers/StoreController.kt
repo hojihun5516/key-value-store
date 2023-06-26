@@ -1,10 +1,10 @@
-package com.example.keyvaluestore.controllers
+package com.modernflow.keyvaluestore.proxy.controllers
 
-import com.example.keyvaluestore.dtos.KeyValueStoreDto
-import com.example.keyvaluestore.dtos.StoreUpsertRequestDto
-import com.example.keyvaluestore.services.StoreDeleteService
-import com.example.keyvaluestore.services.StoreGetService
-import com.example.keyvaluestore.services.StoreUpsertService
+import com.modernflow.keyvaluestore.proxy.dtos.KeyValueStoreDto
+import com.modernflow.keyvaluestore.proxy.dtos.StoreUpsertRequestDto
+import com.modernflow.keyvaluestore.proxy.services.StoreDeleteService
+import com.modernflow.keyvaluestore.proxy.services.StoreGetService
+import com.modernflow.keyvaluestore.proxy.services.StoreUpsertService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
