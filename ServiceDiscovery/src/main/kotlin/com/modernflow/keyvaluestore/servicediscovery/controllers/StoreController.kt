@@ -2,12 +2,16 @@ package com.modernflow.keyvaluestore.servicediscovery.controllers
 
 import com.modernflow.keyvaluestore.servicediscovery.addresses.PhysicalAddress
 import com.modernflow.keyvaluestore.servicediscovery.dtos.PhysicalNodeAddressDto
+import com.modernflow.keyvaluestore.servicediscovery.services.HealthCheckService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class StoreController {
+class StoreController(
+    private val healthCheckService: HealthCheckService
+) {
     @GetMapping(
         "/store-addresses",
         consumes = [MediaType.APPLICATION_JSON_VALUE],
@@ -15,5 +19,17 @@ class StoreController {
     )
     fun listUpStorePhysicalAddress(): List<PhysicalNodeAddressDto> {
         return PhysicalAddress.getStorePhysicalNodes()
+    }
+
+    @GetMapping(
+        "/store-addresses/ip/{ip}/port/{port}",
+        consumes = [MediaType.APPLICATION_JSON_VALUE],
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
+    fun isHealthAddress(
+        @PathVariable ip: String,
+        @PathVariable port: Int,
+    ): Boolean {
+        return healthCheckService.isHealth(PhysicalNodeAddressDto(ip, port))
     }
 }
