@@ -20,7 +20,6 @@ class DataDeleteServiceTest(
     @Test
     fun `sut should delete and return boolean when key is given`() {
         // Arrange
-        val expectedValue = "Value"
         every { dataManager.delete(12345L) } returns true
 
         // Act
