@@ -1,0 +1,51 @@
+version: '3'
+services:
+  proxy-service:
+    image: proxy-service-image
+    build:
+      context: ./Proxy
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    environment:
+      - SERVER_PORT=9000
+
+  service-discovery:
+    image: service-discovery-image
+    build:
+      context: ./ServiceDiscovery
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - SERVER_PORT=8000
+
+  store-service-1:
+    image: store-service-image
+    build:
+      context: ./Store
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - SERVER_PORT=5000
+
+  store-service-2:
+    image: store-service-image
+    build:
+      context: ./Store
+      dockerfile: Dockerfile
+    ports:
+      - "5100:5100"
+    environment:
+      - SERVER_PORT=5100
+
+  store-service-3:
+    image: store-service-image
+    build:
+      context: ./Store
+      dockerfile: Dockerfile
+    ports:
+      - "5200:5200"
+    environment:
+      - SERVER_PORT=5200
