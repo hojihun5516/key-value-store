@@ -1,7 +1,7 @@
 package com.modernflow.keyvaluestore.servicediscovery.controllers
 
-import com.modernflow.keyvaluestore.servicediscovery.addresses.PhysicalAddress
-import com.modernflow.keyvaluestore.servicediscovery.dtos.PhysicalNodeAddressDto
+import com.modernflow.keyvaluestore.address.PhysicalAddress
+import com.modernflow.keyvaluestore.dtos.PhysicalNodeAddressDto
 import com.modernflow.keyvaluestore.servicediscovery.services.HealthCheckService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -13,7 +13,7 @@ class StoreController(
     private val healthCheckService: HealthCheckService
 ) {
     @GetMapping(
-        "/store-addresses",
+        "/service-discovery/store-addresses",
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
     )
@@ -22,7 +22,7 @@ class StoreController(
     }
 
     @GetMapping(
-        "/store-addresses/ip/{ip}/port/{port}",
+        "/service-discovery/store-addresses/ip/{ip}/port/{port}",
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
     )

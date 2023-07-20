@@ -1,6 +1,7 @@
 package com.modernflow.keyvaluestore.servicediscovery.services
 
-import com.modernflow.keyvaluestore.servicediscovery.dtos.PhysicalNodeAddressDto
+import com.modernflow.keyvaluestore.dtos.PhysicalNodeAddressDto
+import com.modernflow.keyvaluestore.services.PhysicalAddressClientService
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -11,6 +12,7 @@ class HealthCheckService(
     private val physicalAddressClientService: PhysicalAddressClientService,
     private val proxyService: ProxyService,
 ) {
+
     @OptIn(DelicateCoroutinesApi::class)
     fun isHealth(physicalNodeAddressDto: PhysicalNodeAddressDto): Boolean {
         val storeClient = physicalAddressClientService.getStoreClient(physicalNodeAddressDto)

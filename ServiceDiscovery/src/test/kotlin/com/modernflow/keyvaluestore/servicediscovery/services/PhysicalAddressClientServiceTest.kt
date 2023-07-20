@@ -1,12 +1,13 @@
 package com.modernflow.keyvaluestore.servicediscovery.services
 
-import com.modernflow.keyvaluestore.servicediscovery.addresses.PhysicalAddress.FIRST_PHYSICAL_NODE
-import com.modernflow.keyvaluestore.servicediscovery.addresses.PhysicalAddress.SECOND_PHYSICAL_NODE
-import com.modernflow.keyvaluestore.servicediscovery.addresses.PhysicalAddress.THIRD_PHYSICAL_NODE
-import com.modernflow.keyvaluestore.servicediscovery.clients.FirstStoreClient
-import com.modernflow.keyvaluestore.servicediscovery.clients.SecondStoreClient
-import com.modernflow.keyvaluestore.servicediscovery.clients.ThirdStoreClient
-import com.modernflow.keyvaluestore.servicediscovery.dtos.PhysicalNodeAddressDto
+import com.modernflow.keyvaluestore.address.PhysicalAddress.FIRST_PHYSICAL_NODE
+import com.modernflow.keyvaluestore.address.PhysicalAddress.SECOND_PHYSICAL_NODE
+import com.modernflow.keyvaluestore.address.PhysicalAddress.THIRD_PHYSICAL_NODE
+import com.modernflow.keyvaluestore.clients.FirstStoreClient
+import com.modernflow.keyvaluestore.clients.SecondStoreClient
+import com.modernflow.keyvaluestore.clients.ThirdStoreClient
+import com.modernflow.keyvaluestore.dtos.PhysicalNodeAddressDto
+import com.modernflow.keyvaluestore.services.PhysicalAddressClientService
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
