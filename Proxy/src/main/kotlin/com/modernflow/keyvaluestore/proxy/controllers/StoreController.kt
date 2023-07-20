@@ -1,7 +1,7 @@
 package com.modernflow.keyvaluestore.proxy.controllers
 
-import com.modernflow.keyvaluestore.proxy.dtos.KeyValueStoreDto
-import com.modernflow.keyvaluestore.proxy.dtos.StoreUpsertRequestDto
+import com.modernflow.keyvaluestore.dtos.KeyValueStoreRequestDto
+import com.modernflow.keyvaluestore.dtos.StoreUpsertRequestDto
 import com.modernflow.keyvaluestore.proxy.services.StoreDeleteService
 import com.modernflow.keyvaluestore.proxy.services.StoreGetService
 import com.modernflow.keyvaluestore.proxy.services.StoreUpsertService
@@ -20,16 +20,16 @@ class StoreController(
     private val storeDeleteService: StoreDeleteService,
 ) {
     @PutMapping(
-        "/store/{key}",
+        "/proxy/store/{key}",
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
     )
     fun upsert(
         @PathVariable key: String,
         @RequestBody storeUpsertRequestDto: StoreUpsertRequestDto,
-    ): KeyValueStoreDto {
+    ): Boolean {
         return storeUpsertService.upsert(
-            keyValueStoreDto = KeyValueStoreDto(
+            keyValueStoreRequestDto = KeyValueStoreRequestDto(
                 key = key,
                 value = storeUpsertRequestDto.value
             )
@@ -37,13 +37,13 @@ class StoreController(
     }
 
     @GetMapping(
-        "/store/{key}",
+        "/proxy/store/{key}",
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
     )
     fun get(
         @PathVariable key: String,
-    ): KeyValueStoreDto {
+    ): KeyValueStoreRequestDto {
         return storeGetService.get(key)
     }
 
@@ -55,7 +55,7 @@ class StoreController(
     )
     fun delete(
         @PathVariable key: String,
-    ) {
-        storeDeleteService.delete(key)
+    ): Boolean {
+        return storeDeleteService.delete(key)
     }
 }
