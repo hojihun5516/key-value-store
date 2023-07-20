@@ -1,7 +1,8 @@
 package com.modernflow.keyvaluestore.servicediscovery.services
 
-import com.modernflow.keyvaluestore.servicediscovery.clients.StoreClient
-import com.modernflow.keyvaluestore.servicediscovery.dtos.PhysicalNodeAddressDto
+import com.modernflow.keyvaluestore.clients.StoreClient
+import com.modernflow.keyvaluestore.dtos.PhysicalNodeAddressDto
+import com.modernflow.keyvaluestore.services.PhysicalAddressClientService
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK

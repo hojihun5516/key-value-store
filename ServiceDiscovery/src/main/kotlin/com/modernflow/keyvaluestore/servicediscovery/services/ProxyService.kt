@@ -1,6 +1,6 @@
 package com.modernflow.keyvaluestore.servicediscovery.services
 
-import com.modernflow.keyvaluestore.servicediscovery.dtos.PhysicalNodeAddressDto
+import com.modernflow.keyvaluestore.dtos.PhysicalNodeAddressDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.springframework.http.HttpStatus
