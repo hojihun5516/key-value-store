@@ -36,26 +36,13 @@ class StoreController(
         )
     }
 
-    @GetMapping(
-        "/proxy/store/{key}",
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
-        produces = [MediaType.APPLICATION_JSON_VALUE],
-    )
-    fun get(
-        @PathVariable key: String,
-    ): KeyValueStoreRequestDto {
+    @GetMapping("/proxy/store/{key}")
+    fun get(@PathVariable key: String): KeyValueStoreRequestDto {
         return storeGetService.get(key)
     }
 
-
-    @DeleteMapping(
-        "/store/{key}",
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
-        produces = [MediaType.APPLICATION_JSON_VALUE],
-    )
-    fun delete(
-        @PathVariable key: String,
-    ): Boolean {
+    @DeleteMapping("/proxy/store/{key}")
+    fun delete(@PathVariable key: String): Boolean {
         return storeDeleteService.delete(key)
     }
 }

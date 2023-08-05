@@ -1,6 +1,7 @@
 package com.modernflow.keyvaluestore.store.controllers
 
 import com.modernflow.keyvaluestore.dtos.KeyValueStoreDto
+import com.modernflow.keyvaluestore.dtos.StoreGetResponseDto
 import com.modernflow.keyvaluestore.dtos.StoreUpsertRequestDto
 import com.modernflow.keyvaluestore.store.services.DataDeleteService
 import com.modernflow.keyvaluestore.store.services.DataGetService
@@ -36,25 +37,13 @@ class StoreController(
         )
     }
 
-    @GetMapping(
-        "/store/{key}",
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
-        produces = [MediaType.APPLICATION_JSON_VALUE],
-    )
-    fun get(
-        @PathVariable key: Long,
-    ): Any? {
-        return dataGetService.get(key)
+    @GetMapping("/store/{key}")
+    fun get(@PathVariable key: Long): StoreGetResponseDto? {
+        return dataGetService.get(key)?.let { StoreGetResponseDto(value = it) }
     }
 
-    @DeleteMapping(
-        "/store/{key}",
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
-        produces = [MediaType.APPLICATION_JSON_VALUE],
-    )
-    fun delete(
-        @PathVariable key: Long,
-    ): Boolean {
+    @DeleteMapping("/store/{key}")
+    fun delete(@PathVariable key: Long): Boolean {
         return dataDeleteService.delete(key)
     }
 }
