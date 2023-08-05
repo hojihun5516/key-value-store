@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable
 
 @FeignClient(
     name = "serviceDiscoveryClient",
-    url = "localhost:8000",
+    url = "http://service-discovery:8000",
 )
 interface ServiceDiscoveryClient {
-    @GetMapping("/service-discovery/store-addresses")
+    @GetMapping(
+        "/service-discovery/store-addresses",
+        consumes = [MediaType.APPLICATION_JSON_VALUE],
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     fun getStoreAddress(): List<PhysicalNodeAddressDto>
 
     @GetMapping(

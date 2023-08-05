@@ -19,7 +19,7 @@ class StoreGetService(
         if (isStoreHealth) {
             return KeyValueStoreRequestDto(
                 key = key,
-                value = storeClient.get(key = hashedKey)
+                value = storeClient.get(key = hashedKey)?.value
             )
         } else {
             throw Exception("target store is not health condition")

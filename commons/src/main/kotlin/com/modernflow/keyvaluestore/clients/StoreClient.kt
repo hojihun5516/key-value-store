@@ -1,5 +1,6 @@
 package com.modernflow.keyvaluestore.clients
 
+import com.modernflow.keyvaluestore.dtos.StoreGetResponseDto
 import com.modernflow.keyvaluestore.dtos.StoreUpsertRequestDto
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.http.MediaType
@@ -20,23 +21,11 @@ interface StoreClient {
         @RequestBody storeUpsertRequestDto: StoreUpsertRequestDto,
     ): Boolean
 
-    @GetMapping(
-        "/store/{key}",
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
-        produces = [MediaType.APPLICATION_JSON_VALUE],
-    )
-    fun get(
-        @PathVariable key: Long,
-    ): Any?
+    @GetMapping("/store/{key}")
+    fun get(@PathVariable key: Long): StoreGetResponseDto?
 
-    @DeleteMapping(
-        "/store/{key}",
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
-        produces = [MediaType.APPLICATION_JSON_VALUE],
-    )
-    fun delete(
-        @PathVariable key: Long,
-    ): Boolean
+    @DeleteMapping("/store/{key}")
+    fun delete(@PathVariable key: Long): Boolean
 
     @GetMapping("/health-check")
     fun healthCheck(): Boolean
@@ -44,18 +33,18 @@ interface StoreClient {
 
 @FeignClient(
     name = "firstStoreClient",
-    url = "localhost:5000",
+    url = "store-service-1:5000",
 )
 interface FirstStoreClient : StoreClient
 
 @FeignClient(
     name = "secondStoreClient",
-    url = "localhost:5100",
+    url = "store-service-2:5100",
 )
 interface SecondStoreClient : StoreClient
 
 @FeignClient(
     name = "thirdStoreClient",
-    url = "localhost:5200",
+    url = "store-service-3:5200",
 )
 interface ThirdStoreClient : StoreClient
