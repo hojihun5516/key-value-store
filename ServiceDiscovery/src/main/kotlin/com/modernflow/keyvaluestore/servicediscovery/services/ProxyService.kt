@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate
 class ProxyService(private val restTemplate: RestTemplate) {
     suspend fun removeStoreServer(physicalNodeAddressDto: PhysicalNodeAddressDto) {
         val (ip, port) = physicalNodeAddressDto
-        val removeUrl = "http://service-discovery:8000/consistence-hash-ring/ip/$ip/port/$port"
+        val removeUrl = "http://proxy-service:9000/proxy/consistence-hash-map/ip/$ip/port/$port"
 
         try {
             withContext(Dispatchers.IO) {
