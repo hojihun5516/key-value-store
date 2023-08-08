@@ -19,15 +19,15 @@ class ProxyService(private val restTemplate: RestTemplate) {
 
         try {
             withContext(Dispatchers.IO) { restTemplate.delete(removeUrl) }
-            logger.info { "A 스토어 서버 제거 요청이 성공적으로 완료되었습니다." }
+            logger.info { "$physicalNodeAddressDto 스토어 서버 제거 요청이 성공적으로 완료되었습니다." }
         } catch (ex: HttpClientErrorException) {
             if (ex.statusCode == HttpStatus.NOT_FOUND) {
-                logger.error { "A 스토어 서버를 찾을 수 없습니다." }
+                logger.error { "$physicalNodeAddressDto A 스토어 서버를 찾을 수 없습니다." }
             } else {
-                logger.error { "A 스토어 서버 제거 요청이 실패하였습니다. 응답코드: ${ex.statusCode.value()}" }
+                logger.error { "$physicalNodeAddressDto A 스토어 서버 제거 요청이 실패하였습니다. 응답코드: ${ex.statusCode.value()}" }
             }
         } catch (ex: Exception) {
-            logger.error { "A 스토어 서버 제거 요청 중에 예외가 발생하였습니다: ${ex.message}" }
+            logger.error { "$physicalNodeAddressDto A 스토어 서버 제거 요청 중에 예외가 발생하였습니다: ${ex.message}" }
         }
     }
 }
