@@ -22,6 +22,10 @@ class ConsistenceHashMap(
         return VirtualNode(id = key, hash = hash, physicalNode = physicalNode)
     }
 
+    fun removePhysicalNode(physicalNodeAddressDto: PhysicalNodeAddressDto) {
+        circle.entries.removeIf { it.value.physicalNode == physicalNodeAddressDto }
+    }
+
     fun hashKey(key: String): Long = hash.hash(key)
 
     fun createCirCle(storeAddresses: List<PhysicalNodeAddressDto>): Boolean {
