@@ -4,7 +4,10 @@ import com.modernflow.keyvaluestore.dtos.KeyValueStoreRequestDto
 import com.modernflow.keyvaluestore.dtos.StoreUpsertRequestDto
 import com.modernflow.keyvaluestore.proxy.store.ConsistenceHashMap
 import com.modernflow.keyvaluestore.services.PhysicalAddressClientService
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Service
+
+private val logger = KotlinLogging.logger {}
 
 @Service
 class StoreUpsertService(
@@ -17,7 +20,7 @@ class StoreUpsertService(
         val hashedKey = consistenceHashMap.hashKey(key)
         val (isStoreHealth, physicalNode) = storeHealthCheckService.isStoreHealth(key)
         val storeClient = physicalAddressClientService.getStoreClient(physicalNode)
-
+        logger.info { "upsert - key: $key, value: $value, target physicalNode: $physicalNode" }
         if (isStoreHealth) {
             storeClient.upsert(
                 key = hashedKey,
