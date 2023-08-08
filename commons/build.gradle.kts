@@ -22,6 +22,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.0.1")
+    implementation("io.github.oshai:kotlin-logging-jvm:5.0.1")
 }
 
 dependencyManagement {
