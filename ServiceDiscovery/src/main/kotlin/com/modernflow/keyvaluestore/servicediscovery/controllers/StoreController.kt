@@ -1,7 +1,7 @@
 package com.modernflow.keyvaluestore.servicediscovery.controllers
 
-import com.modernflow.keyvaluestore.address.PhysicalAddress
 import com.modernflow.keyvaluestore.dtos.PhysicalNodeAddressDto
+import com.modernflow.keyvaluestore.servicediscovery.address.PhysicalAddress
 import com.modernflow.keyvaluestore.servicediscovery.services.HealthCheckService
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,7 +18,7 @@ class StoreController(
         produces = [MediaType.APPLICATION_JSON_VALUE],
     )
     fun listUpStorePhysicalAddress(): List<PhysicalNodeAddressDto> {
-        return PhysicalAddress.getStorePhysicalNodes()
+        return PhysicalAddress.availablePhysicalAddresses
     }
 
     @GetMapping(

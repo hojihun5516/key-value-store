@@ -1,6 +1,6 @@
 package com.modernflow.keyvaluestore.proxy.store
 
-import com.modernflow.keyvaluestore.address.PhysicalAddress
+import com.modernflow.keyvaluestore.dtos.PhysicalNodeAddressDto
 import com.modernflow.keyvaluestore.dtos.VirtualNode
 import com.modernflow.keyvaluestore.proxy.hash.Hash
 import io.mockk.every
@@ -26,7 +26,7 @@ class ConsistenceHashMapTest(
         every { hash.hash(any()) } returnsMany randomValues
 
         val sut = ConsistenceHashMap(hash)
-        sut.createCirCle(PhysicalAddress.getStorePhysicalNodes())
+        sut.createCirCle(getPhysicalAddresses())
 
         // Act
         val circle = ReflectionTestUtils.getField(sut, "circle") as SortedMap<*, *>
@@ -41,7 +41,7 @@ class ConsistenceHashMapTest(
         // Arrange
         every { hash.hash(any()) } returnsMany List(300) { Random().nextLong() }
         val sut = ConsistenceHashMap(hash)
-        sut.createCirCle(PhysicalAddress.getStorePhysicalNodes())
+        sut.createCirCle(getPhysicalAddresses())
 
         val key = "testKey"
         val hashValue: Long = 1234 // example hash value
@@ -61,7 +61,7 @@ class ConsistenceHashMapTest(
         // Arrange
         every { hash.hash(any()) } returnsMany List(300) { Random().nextLong() }
         val sut = ConsistenceHashMap(hash)
-        sut.createCirCle(PhysicalAddress.getStorePhysicalNodes())
+        sut.createCirCle(getPhysicalAddresses())
 
         val key = "testKey"
         val hashValue: Long = Long.MAX_VALUE // example hash value
@@ -76,5 +76,22 @@ class ConsistenceHashMapTest(
         // Assert
         assertThat(virtualNode).isNotNull
         assertThat(virtualNode.physicalNode).isEqualTo(expectedPhysicalNode)
+    }
+
+    private fun getPhysicalAddresses(): List<PhysicalNodeAddressDto> {
+        return listOf(
+            PhysicalNodeAddressDto(
+                ip = "store-service-1",
+                port = 5000,
+            ),
+            PhysicalNodeAddressDto(
+                ip = "store-service-2",
+                port = 5100,
+            ),
+            PhysicalNodeAddressDto(
+                ip = "store-service-3",
+                port = 5200,
+            )
+        )
     }
 }
