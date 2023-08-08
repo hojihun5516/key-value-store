@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable
 interface ServiceDiscoveryClient {
     @GetMapping(
         "/service-discovery/store-addresses",
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
     )
     fun getStoreAddress(): List<PhysicalNodeAddressDto>
 
     @GetMapping(
         "/service-discovery/store-addresses/ip/{ip}/port/{port}",
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
     )
     fun isHealthAddress(

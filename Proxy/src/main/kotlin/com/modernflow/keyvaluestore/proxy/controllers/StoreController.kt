@@ -36,7 +36,10 @@ class StoreController(
         )
     }
 
-    @GetMapping("/proxy/store/{key}")
+    @GetMapping(
+        "/proxy/store/{key}",
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     fun get(@PathVariable key: String): KeyValueStoreRequestDto {
         return storeGetService.get(key)
     }

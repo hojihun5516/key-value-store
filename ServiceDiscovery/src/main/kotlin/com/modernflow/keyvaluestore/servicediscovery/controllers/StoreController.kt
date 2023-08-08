@@ -14,7 +14,6 @@ class StoreController(
 ) {
     @GetMapping(
         "/service-discovery/store-addresses",
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
     )
     fun listUpStorePhysicalAddress(): List<PhysicalNodeAddressDto> {
@@ -23,7 +22,6 @@ class StoreController(
 
     @GetMapping(
         "/service-discovery/store-addresses/ip/{ip}/port/{port}",
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
     )
     fun isHealthAddress(

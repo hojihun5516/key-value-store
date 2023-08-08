@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController
 class HealthController {
     @GetMapping(
         "/proxy/health-check",
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE],
     )
     fun healthCheck(): Boolean {

@@ -37,7 +37,10 @@ class StoreController(
         )
     }
 
-    @GetMapping("/store/{key}")
+    @GetMapping(
+        "/store/{key}",
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     fun get(@PathVariable key: Long): StoreGetResponseDto? {
         return dataGetService.get(key)?.let { StoreGetResponseDto(value = it) }
     }

@@ -21,13 +21,19 @@ interface StoreClient {
         @RequestBody storeUpsertRequestDto: StoreUpsertRequestDto,
     ): Boolean
 
-    @GetMapping("/store/{key}")
+    @GetMapping(
+        "/store/{key}",
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     fun get(@PathVariable key: Long): StoreGetResponseDto?
 
     @DeleteMapping("/store/{key}")
     fun delete(@PathVariable key: Long): Boolean
 
-    @GetMapping("/health-check")
+    @GetMapping(
+        "/health-check",
+        produces = [MediaType.APPLICATION_JSON_VALUE],
+    )
     fun healthCheck(): Boolean
 }
 
