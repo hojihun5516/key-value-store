@@ -18,11 +18,11 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.0.1")
-    implementation("io.github.oshai:kotlin-logging-jvm:5.0.1")
+    api("org.springframework.boot:spring-boot-starter-web")
+    api("com.fasterxml.jackson.module:jackson-module-kotlin")
+    api("org.jetbrains.kotlin:kotlin-reflect")
+    api("org.springframework.cloud:spring-cloud-starter-openfeign:3.0.1")
+    api("io.github.oshai:kotlin-logging-jvm:5.0.1")
 }
 
 dependencyManagement {
