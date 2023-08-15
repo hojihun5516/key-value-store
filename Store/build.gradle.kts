@@ -21,6 +21,7 @@ repositories {
 dependencies {
 	implementation(project(":commons"))
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.0.1")
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("com.ninja-squad:springmockk:3.1.1")
 }
