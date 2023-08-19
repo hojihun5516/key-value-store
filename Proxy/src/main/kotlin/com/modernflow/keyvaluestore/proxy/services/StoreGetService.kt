@@ -12,21 +12,22 @@ private val logger = KotlinLogging.logger {}
 class StoreGetService(
     private val consistenceHashMap: ConsistenceHashMap,
     private val physicalAddressClientService: PhysicalAddressClientService,
-    private val storeHealthCheckService: StoreHealthCheckService,
 ) {
     fun get(key: String): KeyValueStoreRequestDto {
         val hashedKey = consistenceHashMap.hashKey(key)
-        val (isStoreHealth, physicalNode) = storeHealthCheckService.isStoreHealth(key)
+        val (_, hash, physicalNode) = consistenceHashMap.getVirtualNode(key)
+
         val storeClient = physicalAddressClientService.getStoreClient(physicalNode)
         logger.info { "get - key: $key, target physicalNode: $physicalNode" }
 
-        if (isStoreHealth) {
-            return KeyValueStoreRequestDto(
+        return try {
+            KeyValueStoreRequestDto(
                 key = key,
                 value = storeClient.get(key = hashedKey)?.value
             )
-        } else {
-            throw Exception("target store is not health condition")
+        } catch (e: Exception) {
+            logger.error { "upsert error message: $e" }
+            throw e
         }
     }
 }
