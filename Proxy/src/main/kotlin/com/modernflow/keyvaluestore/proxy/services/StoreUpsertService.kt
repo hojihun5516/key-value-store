@@ -13,22 +13,22 @@ private val logger = KotlinLogging.logger {}
 class StoreUpsertService(
     private val consistenceHashMap: ConsistenceHashMap,
     private val physicalAddressClientService: PhysicalAddressClientService,
-    private val storeHealthCheckService: StoreHealthCheckService,
 ) {
     fun upsert(keyValueStoreRequestDto: KeyValueStoreRequestDto): Boolean {
         val (key, value) = keyValueStoreRequestDto
         val hashedKey = consistenceHashMap.hashKey(key)
-        val (isStoreHealth, physicalNode) = storeHealthCheckService.isStoreHealth(key)
-        val storeClient = physicalAddressClientService.getStoreClient(physicalNode)
+        val (_, hash, physicalNode) = consistenceHashMap.getVirtualNode(key)
         logger.info { "upsert - key: $key, value: $value, target physicalNode: $physicalNode" }
-        if (isStoreHealth) {
+
+        val storeClient = physicalAddressClientService.getStoreClient(physicalNode)
+        return try {
             storeClient.upsert(
                 key = hashedKey,
                 storeUpsertRequestDto = StoreUpsertRequestDto(value!!)
             )
-            return true
-        } else {
-            throw Exception("target store is not health condition")
+        } catch (e: Exception) {
+            logger.error { "upsert error message: $e" }
+            throw e
         }
     }
 }
