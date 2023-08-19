@@ -1,4 +1,4 @@
-package com.modernflow.keyvaluestore.servicediscovery.address
+package com.modernflow.keyvaluestore.address
 
 import com.modernflow.keyvaluestore.dtos.PhysicalNodeAddressDto
 
@@ -23,8 +23,4 @@ object PhysicalAddress {
         SECOND_PHYSICAL_NODE,
         THIRD_PHYSICAL_NODE,
     )
-
-    fun removePhysicalNode(ip: String, port: Int) {
-        availablePhysicalAddresses.removeIf { it.ip == ip && it.port == port }
-    }
 }

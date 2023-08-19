@@ -1,5 +1,6 @@
 package com.modernflow.keyvaluestore.servicediscovery.address
 
+import com.modernflow.keyvaluestore.address.PhysicalAddress
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
