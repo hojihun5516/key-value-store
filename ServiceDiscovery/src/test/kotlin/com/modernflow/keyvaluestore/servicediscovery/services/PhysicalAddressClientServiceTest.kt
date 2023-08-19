@@ -4,9 +4,9 @@ import com.modernflow.keyvaluestore.clients.FirstStoreClient
 import com.modernflow.keyvaluestore.clients.SecondStoreClient
 import com.modernflow.keyvaluestore.clients.ThirdStoreClient
 import com.modernflow.keyvaluestore.dtos.PhysicalNodeAddressDto
-import com.modernflow.keyvaluestore.servicediscovery.address.PhysicalAddress.FIRST_PHYSICAL_NODE
-import com.modernflow.keyvaluestore.servicediscovery.address.PhysicalAddress.SECOND_PHYSICAL_NODE
-import com.modernflow.keyvaluestore.servicediscovery.address.PhysicalAddress.THIRD_PHYSICAL_NODE
+import com.modernflow.keyvaluestore.address.PhysicalAddress.FIRST_PHYSICAL_NODE
+import com.modernflow.keyvaluestore.address.PhysicalAddress.SECOND_PHYSICAL_NODE
+import com.modernflow.keyvaluestore.address.PhysicalAddress.THIRD_PHYSICAL_NODE
 import com.modernflow.keyvaluestore.services.PhysicalAddressClientService
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
