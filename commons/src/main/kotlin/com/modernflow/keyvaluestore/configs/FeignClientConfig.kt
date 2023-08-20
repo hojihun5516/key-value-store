@@ -7,8 +7,8 @@ import java.util.concurrent.TimeUnit
 
 @Configuration
 class FeignClientConfig {
-    private val connectTimeout = 5000L
-    private val readTimeout = 5000L
+    private val connectTimeout = 1L
+    private val readTimeout = 3000L
 
     @Bean
     fun options(): Request.Options {
