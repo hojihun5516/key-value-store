@@ -10,13 +10,15 @@ class User(HttpUser):
 
     @task
     def put_data(self):
-        self.update_key_value()
-        url = f'/proxy/store/{self.key}'
-        headers = {'Content-Type': 'application/json'}
-        data = {'key': f'{self.key}', 'value': f'{self.value} value'}
-        self.client.put(url, json=data)
+        for i in range(500):
+            self.update_key_value()
+            url = f'/proxy/store/{self.key}'
+            headers = {'Content-Type': 'application/json'}
+            data = {'key': f'{self.key}', 'value': f'{self.value} value'}
+            self.client.put(url, json=data)
 
     @task
     def get_data(self):
-        url = f'/proxy/store/{self.key}'
-        self.client.get(url)
+        for i in range(500):
+            url = f'/proxy/store/{self.key}'
+            self.client.get(url)
