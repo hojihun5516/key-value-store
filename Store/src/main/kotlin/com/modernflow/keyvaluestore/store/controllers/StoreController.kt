@@ -20,15 +20,8 @@ class StoreController(
     private val dataDeleteService: DataDeleteService,
     private val dataGetService: DataGetService,
 ) {
-    @PutMapping(
-        "/store/{key}",
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
-        produces = [MediaType.APPLICATION_JSON_VALUE],
-    )
-    fun upsert(
-        @PathVariable key: Long,
-        @RequestBody storeUpsertRequestDto: StoreUpsertRequestDto,
-    ): Boolean {
+    @PutMapping("/store/{key}")
+    fun upsert(@PathVariable key: Long, @RequestBody storeUpsertRequestDto: StoreUpsertRequestDto): Boolean {
         return dataUpsertService.upsert(
             keyValueStoreDto = KeyValueStoreDto(
                 key = key,
