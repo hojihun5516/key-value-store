@@ -19,9 +19,9 @@ class StoreDeleteService(
         logger.info { "delete - key: $key, target physicalNode: $physicalNode" }
 
         return try {
-            return storeClient.delete(key = hashedKey)
+            storeClient.delete(key = hashedKey)
         } catch (e: Exception) {
-            logger.error { "upsert error message: $e" }
+            logger.error { "delete error message: $e" }
             throw e
         }
     }
