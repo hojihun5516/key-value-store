@@ -1,5 +1,6 @@
 package com.modernflow.keyvaluestore.proxy.controllers
 
+import com.modernflow.keyvaluestore.dtos.KeyValueStoreGetResponseDto
 import com.modernflow.keyvaluestore.dtos.KeyValueStoreRequestDto
 import com.modernflow.keyvaluestore.dtos.StoreUpsertRequestDto
 import com.modernflow.keyvaluestore.proxy.services.StoreDeleteService
@@ -37,7 +38,7 @@ class StoreController(
     }
 
     @GetMapping("/proxy/store/{key}")
-    fun get(@PathVariable key: String): KeyValueStoreRequestDto {
+    fun get(@PathVariable key: String): KeyValueStoreGetResponseDto {
         return storeGetService.get(key)
     }
 

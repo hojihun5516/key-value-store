@@ -1,5 +1,6 @@
 package com.modernflow.keyvaluestore.proxy.services
 
+import com.modernflow.keyvaluestore.dtos.KeyValueStoreGetResponseDto
 import com.modernflow.keyvaluestore.dtos.KeyValueStoreRequestDto
 import com.modernflow.keyvaluestore.proxy.store.ConsistenceHashMap
 import com.modernflow.keyvaluestore.services.PhysicalAddressClientService
@@ -13,7 +14,7 @@ class StoreGetService(
     private val consistenceHashMap: ConsistenceHashMap,
     private val physicalAddressClientService: PhysicalAddressClientService,
 ) {
-    fun get(key: String): KeyValueStoreRequestDto {
+    fun get(key: String): KeyValueStoreGetResponseDto {
         val hashedKey = consistenceHashMap.hashKey(key)
         val (_, hash, physicalNode) = consistenceHashMap.getVirtualNode(key)
 
@@ -21,12 +22,12 @@ class StoreGetService(
         logger.info { "get - key: $key, target physicalNode: $physicalNode" }
 
         return try {
-            KeyValueStoreRequestDto(
+            KeyValueStoreGetResponseDto(
                 key = key,
                 value = storeClient.get(key = hashedKey)?.value
             )
         } catch (e: Exception) {
-            logger.error { "upsert error message: $e" }
+            logger.error { "get error message: $e" }
             throw e
         }
     }
