@@ -13,15 +13,6 @@ class ConsistenceHashMap(
     private val numberOfVirtualNode: Int = 300
     private val circle: SortedMap<Long, VirtualNode> = TreeMap()
 
-    fun getVirtualNode(key: String): VirtualNode {
-        val hash = hash.hash(key)
-        val physicalNode = circle.entries.firstOrNull { it.key >= hash }
-            ?.value
-            ?.let { it.physicalNode }
-            ?: circle.entries.first().value.physicalNode
-        return VirtualNode(id = key, hash = hash, physicalNode = physicalNode)
-    }
-
     fun removePhysicalNode(physicalNodeAddressDto: PhysicalNodeAddressDto) {
         circle.entries.removeIf { it.value.physicalNode == physicalNodeAddressDto }
     }
@@ -44,5 +35,21 @@ class ConsistenceHashMap(
             }
         }
         return true
+    }
+
+    fun getPhysicalNode(key: String): PhysicalNodeAddressDto {
+        val hash = hash.hash(key)
+        return findPhysicalNodeByHash(hash) ?: getFirstPhysicalNode()
+    }
+
+    private fun findPhysicalNodeByHash(hash: Long): PhysicalNodeAddressDto? {
+        return circle.entries
+            .firstOrNull { it.key >= hash }
+            ?.value
+            ?.physicalNode
+    }
+
+    private fun getFirstPhysicalNode(): PhysicalNodeAddressDto {
+        return circle.entries.first().value.physicalNode
     }
 }
