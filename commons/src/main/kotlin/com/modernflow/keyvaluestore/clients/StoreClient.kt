@@ -1,7 +1,6 @@
 package com.modernflow.keyvaluestore.clients
 
-import com.modernflow.keyvaluestore.dtos.StoreGetResponseDto
-import com.modernflow.keyvaluestore.dtos.StoreUpsertRequestDto
+import com.modernflow.keyvaluestore.dtos.StoreValueDto
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -18,11 +17,11 @@ interface StoreClient {
     )
     fun upsert(
         @PathVariable key: Long,
-        @RequestBody storeUpsertRequestDto: StoreUpsertRequestDto,
+        @RequestBody storeValueDto: StoreValueDto,
     ): Boolean
 
     @GetMapping("/store/{key}")
-    fun get(@PathVariable key: Long): StoreGetResponseDto?
+    fun get(@PathVariable key: Long): StoreValueDto?
 
     @DeleteMapping("/store/{key}")
     fun delete(@PathVariable key: Long): Boolean

@@ -1,8 +1,7 @@
 package com.modernflow.keyvaluestore.proxy.controllers
 
-import com.modernflow.keyvaluestore.dtos.KeyValueStoreGetResponseDto
-import com.modernflow.keyvaluestore.dtos.KeyValueStoreRequestDto
-import com.modernflow.keyvaluestore.dtos.StoreUpsertRequestDto
+import com.modernflow.keyvaluestore.dtos.KeyValueStoreDto
+import com.modernflow.keyvaluestore.dtos.StoreValueDto
 import com.modernflow.keyvaluestore.proxy.services.StoreDeleteService
 import com.modernflow.keyvaluestore.proxy.services.StoreGetService
 import com.modernflow.keyvaluestore.proxy.services.StoreUpsertService
@@ -27,18 +26,18 @@ class StoreController(
     )
     fun upsert(
         @PathVariable key: String,
-        @RequestBody storeUpsertRequestDto: StoreUpsertRequestDto,
+        @RequestBody storeValueDto: StoreValueDto,
     ): Boolean {
         return storeUpsertService.upsert(
-            keyValueStoreRequestDto = KeyValueStoreRequestDto(
+            keyValueStoreDto = KeyValueStoreDto(
                 key = key,
-                value = storeUpsertRequestDto.value
+                value = storeValueDto.value
             )
         )
     }
 
     @GetMapping("/proxy/store/{key}")
-    fun get(@PathVariable key: String): KeyValueStoreGetResponseDto {
+    fun get(@PathVariable key: String): KeyValueStoreDto {
         return storeGetService.get(key)
     }
 

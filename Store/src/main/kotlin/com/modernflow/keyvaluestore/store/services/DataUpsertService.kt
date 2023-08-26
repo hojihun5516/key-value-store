@@ -1,6 +1,6 @@
 package com.modernflow.keyvaluestore.store.services
 
-import com.modernflow.keyvaluestore.dtos.KeyValueStoreDto
+import com.modernflow.keyvaluestore.dtos.HashedKeyValueStoreDto
 import com.modernflow.keyvaluestore.store.storage.DataManager
 import org.springframework.stereotype.Service
 
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service
 class DataUpsertService(
     private val dataManager: DataManager,
 ) {
-    fun upsert(keyValueStoreDto: KeyValueStoreDto): Boolean {
-        dataManager.upsert(key = keyValueStoreDto.key, value = keyValueStoreDto.value)
+    fun upsert(hashedKeyValueStoreDto: HashedKeyValueStoreDto): Boolean {
+        dataManager.upsert(key = hashedKeyValueStoreDto.key, value = hashedKeyValueStoreDto.value)
         return true
     }
 }

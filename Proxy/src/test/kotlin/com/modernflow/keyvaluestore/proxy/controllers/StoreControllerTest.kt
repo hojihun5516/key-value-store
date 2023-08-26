@@ -1,9 +1,8 @@
 package com.modernflow.keyvaluestore.proxy.controllers
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.modernflow.keyvaluestore.dtos.KeyValueStoreGetResponseDto
-import com.modernflow.keyvaluestore.dtos.KeyValueStoreRequestDto
-import com.modernflow.keyvaluestore.dtos.StoreUpsertRequestDto
+import com.modernflow.keyvaluestore.dtos.KeyValueStoreDto
+import com.modernflow.keyvaluestore.dtos.StoreValueDto
 import com.modernflow.keyvaluestore.proxy.services.StoreDeleteService
 import com.modernflow.keyvaluestore.proxy.services.StoreGetService
 import com.modernflow.keyvaluestore.proxy.services.StoreUpsertService
@@ -31,10 +30,10 @@ class StoreControllerTest @Autowired constructor(
         // Arrange
         val key = "TEST-KEY"
         val value = "VALUE-1"
-        val request = StoreUpsertRequestDto(value)
+        val request = StoreValueDto(value)
 
         every {
-            storeUpsertService.upsert(keyValueStoreRequestDto = KeyValueStoreRequestDto(
+            storeUpsertService.upsert(keyValueStoreDto = KeyValueStoreDto(
                 key = key,
                 value = request.value
             ))
@@ -50,7 +49,7 @@ class StoreControllerTest @Autowired constructor(
             .andExpect(MockMvcResultMatchers.content().string("true"))
 
         verify {
-            storeUpsertService.upsert(KeyValueStoreRequestDto(
+            storeUpsertService.upsert(KeyValueStoreDto(
                 key = key,
                 value = request.value
             ))
@@ -62,7 +61,7 @@ class StoreControllerTest @Autowired constructor(
         // Arrange
         val key = "TEST-KEY"
         val value = "VALUE"
-        val expected = KeyValueStoreGetResponseDto(key = key, value = value)
+        val expected = KeyValueStoreDto(key = key, value = value)
         every { storeGetService.get(key) } returns expected
 
         // Act & Assert

@@ -1,6 +1,6 @@
 package com.modernflow.keyvaluestore.dtos
 
 data class KeyValueStoreDto(
-    val key: Long,
-    val value: Any,
+    val key: String,
+    val value: Any?,
 )

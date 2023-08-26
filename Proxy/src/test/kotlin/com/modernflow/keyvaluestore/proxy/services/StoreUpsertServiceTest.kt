@@ -1,9 +1,9 @@
 package com.modernflow.keyvaluestore.proxy.services
 
 import com.modernflow.keyvaluestore.clients.StoreClient
-import com.modernflow.keyvaluestore.dtos.KeyValueStoreRequestDto
+import com.modernflow.keyvaluestore.dtos.KeyValueStoreDto
 import com.modernflow.keyvaluestore.dtos.PhysicalNodeAddressDto
-import com.modernflow.keyvaluestore.dtos.StoreUpsertRequestDto
+import com.modernflow.keyvaluestore.dtos.StoreValueDto
 import com.modernflow.keyvaluestore.dtos.VirtualNode
 import com.modernflow.keyvaluestore.proxy.store.ConsistenceHashMap
 import com.modernflow.keyvaluestore.services.PhysicalAddressClientService
@@ -14,7 +14,6 @@ import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
@@ -39,10 +38,10 @@ class StoreUpsertServiceTest(
         every { consistenceHashMap.hashKey(key) } returns hashedKey
         every { consistenceHashMap.getVirtualNode(key) } returns VirtualNode("0", 0, physicalNode)
         every { physicalAddressClientService.getStoreClient(physicalNode) } returns storeClient
-        every { storeClient.upsert(hashedKey, StoreUpsertRequestDto(value)) } returns true
+        every { storeClient.upsert(hashedKey, StoreValueDto(value)) } returns true
 
         // Act
-        val actual = sut.upsert(KeyValueStoreRequestDto(key, value))
+        val actual = sut.upsert(KeyValueStoreDto(key, value))
 
         // Assert
         assertThat(actual).isTrue
@@ -50,7 +49,7 @@ class StoreUpsertServiceTest(
             consistenceHashMap.hashKey(key)
             consistenceHashMap.getVirtualNode(key)
             physicalAddressClientService.getStoreClient(physicalNode)
-            storeClient.upsert(hashedKey, StoreUpsertRequestDto(value))
+            storeClient.upsert(hashedKey, StoreValueDto(value))
         }
     }
 
@@ -61,21 +60,21 @@ class StoreUpsertServiceTest(
         val value = "testValue"
         val hashedKey = 123L
         val physicalNode = PhysicalNodeAddressDto("store-service-1", 5000)
-        val keyValueStoreRequestDto = KeyValueStoreRequestDto(key, value)
+        val keyValueStoreDto = KeyValueStoreDto(key, value)
         val storeClient = mockk<StoreClient>()
 
         every { consistenceHashMap.hashKey(key) } returns hashedKey
         every { consistenceHashMap.getVirtualNode(key) } returns VirtualNode("0", 0, physicalNode)
         every { physicalAddressClientService.getStoreClient(any()) } returns storeClient
-        every { storeClient.upsert(hashedKey, StoreUpsertRequestDto(value)) } throws Exception("upsert error")
+        every { storeClient.upsert(hashedKey, StoreValueDto(value)) } throws Exception("upsert error")
 
         // Act & Assert
-        assertThrows<Exception> { sut.upsert(keyValueStoreRequestDto) }
+        assertThrows<Exception> { sut.upsert(keyValueStoreDto) }
         verify {
             consistenceHashMap.hashKey(key)
             consistenceHashMap.getVirtualNode(key)
             physicalAddressClientService.getStoreClient(physicalNode)
-            storeClient.upsert(hashedKey, StoreUpsertRequestDto(value))
+            storeClient.upsert(hashedKey, StoreValueDto(value))
         }
     }
 }
