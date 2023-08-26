@@ -1,6 +1,6 @@
 package com.modernflow.keyvaluestore.store.services
 
-import com.modernflow.keyvaluestore.dtos.KeyValueStoreDto
+import com.modernflow.keyvaluestore.dtos.HashedKeyValueStoreDto
 import com.modernflow.keyvaluestore.store.storage.DataManager
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -23,7 +23,7 @@ class DataUpsertServiceTest(
         every { dataManager.upsert(key = 12345L, value = "value") } returns true
 
         // Act
-        val actual = sut.upsert(KeyValueStoreDto(key = 12345L, value = "value"))
+        val actual = sut.upsert(HashedKeyValueStoreDto(key = 12345L, value = "value"))
 
         // Assert
         Assertions.assertThat(actual).isTrue()

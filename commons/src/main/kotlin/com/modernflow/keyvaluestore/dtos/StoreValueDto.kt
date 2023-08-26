@@ -1,5 +1,5 @@
 package com.modernflow.keyvaluestore.dtos
 
-data class StoreUpsertRequestDto(
+data class StoreValueDto(
     val value: Any,
 )

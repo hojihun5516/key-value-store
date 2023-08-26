@@ -1,7 +1,6 @@
 package com.modernflow.keyvaluestore.proxy.services
 
-import com.modernflow.keyvaluestore.dtos.KeyValueStoreGetResponseDto
-import com.modernflow.keyvaluestore.dtos.KeyValueStoreRequestDto
+import com.modernflow.keyvaluestore.dtos.KeyValueStoreDto
 import com.modernflow.keyvaluestore.proxy.store.ConsistenceHashMap
 import com.modernflow.keyvaluestore.services.PhysicalAddressClientService
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -14,7 +13,7 @@ class StoreGetService(
     private val consistenceHashMap: ConsistenceHashMap,
     private val physicalAddressClientService: PhysicalAddressClientService,
 ) {
-    fun get(key: String): KeyValueStoreGetResponseDto {
+    fun get(key: String): KeyValueStoreDto {
         val hashedKey = consistenceHashMap.hashKey(key)
         val (_, hash, physicalNode) = consistenceHashMap.getVirtualNode(key)
 
@@ -22,7 +21,7 @@ class StoreGetService(
         logger.info { "get - key: $key, target physicalNode: $physicalNode" }
 
         return try {
-            KeyValueStoreGetResponseDto(
+            KeyValueStoreDto(
                 key = key,
                 value = storeClient.get(key = hashedKey)?.value
             )

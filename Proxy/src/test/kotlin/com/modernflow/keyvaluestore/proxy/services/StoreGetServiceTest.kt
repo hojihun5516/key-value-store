@@ -1,9 +1,9 @@
 package com.modernflow.keyvaluestore.proxy.services
 
 import com.modernflow.keyvaluestore.clients.StoreClient
-import com.modernflow.keyvaluestore.dtos.KeyValueStoreGetResponseDto
+import com.modernflow.keyvaluestore.dtos.KeyValueStoreDto
 import com.modernflow.keyvaluestore.dtos.PhysicalNodeAddressDto
-import com.modernflow.keyvaluestore.dtos.StoreGetResponseDto
+import com.modernflow.keyvaluestore.dtos.StoreValueDto
 import com.modernflow.keyvaluestore.dtos.VirtualNode
 import com.modernflow.keyvaluestore.proxy.store.ConsistenceHashMap
 import com.modernflow.keyvaluestore.services.PhysicalAddressClientService
@@ -34,12 +34,12 @@ class StoreGetServiceTest(
         val hashedKey = 123L
         val physicalNode = PhysicalNodeAddressDto("store-service-1", 5000)
         val storeClient = mockk<StoreClient>()
-        val expected = KeyValueStoreGetResponseDto(key, value)
+        val expected = KeyValueStoreDto(key, value)
 
         every { consistenceHashMap.hashKey(key) } returns hashedKey
         every { consistenceHashMap.getVirtualNode(key) } returns VirtualNode("0", 0, physicalNode)
         every { physicalAddressClientService.getStoreClient(physicalNode) } returns storeClient
-        every { storeClient.get(hashedKey) } returns StoreGetResponseDto(value)
+        every { storeClient.get(hashedKey) } returns StoreValueDto(value)
 
         // Act
         val actual = sut.get(key)

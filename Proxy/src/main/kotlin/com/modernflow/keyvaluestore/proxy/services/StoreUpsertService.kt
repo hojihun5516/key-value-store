@@ -1,7 +1,7 @@
 package com.modernflow.keyvaluestore.proxy.services
 
-import com.modernflow.keyvaluestore.dtos.KeyValueStoreRequestDto
-import com.modernflow.keyvaluestore.dtos.StoreUpsertRequestDto
+import com.modernflow.keyvaluestore.dtos.KeyValueStoreDto
+import com.modernflow.keyvaluestore.dtos.StoreValueDto
 import com.modernflow.keyvaluestore.proxy.store.ConsistenceHashMap
 import com.modernflow.keyvaluestore.services.PhysicalAddressClientService
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -14,8 +14,8 @@ class StoreUpsertService(
     private val consistenceHashMap: ConsistenceHashMap,
     private val physicalAddressClientService: PhysicalAddressClientService,
 ) {
-    fun upsert(keyValueStoreRequestDto: KeyValueStoreRequestDto): Boolean {
-        val (key, value) = keyValueStoreRequestDto
+    fun upsert(keyValueStoreDto: KeyValueStoreDto): Boolean {
+        val (key, value) = keyValueStoreDto
         val hashedKey = consistenceHashMap.hashKey(key)
         val (_, hash, physicalNode) = consistenceHashMap.getVirtualNode(key)
         logger.info { "upsert - key: $key, value: $value, target physicalNode: $physicalNode" }
@@ -24,7 +24,7 @@ class StoreUpsertService(
         return try {
             storeClient.upsert(
                 key = hashedKey,
-                storeUpsertRequestDto = StoreUpsertRequestDto(value!!)
+                storeValueDto = StoreValueDto(value!!)
             )
         } catch (e: Exception) {
             logger.error { "upsert error message: $e" }

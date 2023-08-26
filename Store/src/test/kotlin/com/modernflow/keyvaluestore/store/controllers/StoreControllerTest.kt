@@ -1,8 +1,8 @@
 package com.modernflow.keyvaluestore.store.controllers
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.modernflow.keyvaluestore.dtos.KeyValueStoreDto
-import com.modernflow.keyvaluestore.dtos.StoreUpsertRequestDto
+import com.modernflow.keyvaluestore.dtos.HashedKeyValueStoreDto
+import com.modernflow.keyvaluestore.dtos.StoreValueDto
 import com.modernflow.keyvaluestore.store.services.DataDeleteService
 import com.modernflow.keyvaluestore.store.services.DataGetService
 import com.modernflow.keyvaluestore.store.services.DataUpsertService
@@ -33,8 +33,8 @@ class StoreControllerTest @Autowired constructor(
         // Arrange
         val key = 123L
         val value = "VALUE-1"
-        val request = StoreUpsertRequestDto(value)
-        every { dataUpsertService.upsert(KeyValueStoreDto(key, value)) } returns true
+        val request = StoreValueDto(value)
+        every { dataUpsertService.upsert(HashedKeyValueStoreDto(key, value)) } returns true
 
         // Act & Assert
         mockMvc.perform(
@@ -44,7 +44,7 @@ class StoreControllerTest @Autowired constructor(
         )
             .andExpect(status().isOk)
 
-        verify { dataUpsertService.upsert(KeyValueStoreDto(key, value)) }
+        verify { dataUpsertService.upsert(HashedKeyValueStoreDto(key, value)) }
     }
 
     @Test
