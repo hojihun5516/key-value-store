@@ -14,7 +14,7 @@ class StoreDeleteService(
 ) {
     fun delete(key: String): Boolean {
         val hashedKey = consistenceHashMap.hashKey(key)
-        val (_, hash, physicalNode) = consistenceHashMap.getVirtualNode(key)
+        val physicalNode = consistenceHashMap.getPhysicalNode(key)
         val storeClient = physicalAddressClientService.getStoreClient(physicalNode)
         logger.info { "delete - key: $key, target physicalNode: $physicalNode" }
 

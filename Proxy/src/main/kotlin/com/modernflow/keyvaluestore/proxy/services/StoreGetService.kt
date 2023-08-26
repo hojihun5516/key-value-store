@@ -15,7 +15,7 @@ class StoreGetService(
 ) {
     fun get(key: String): KeyValueStoreDto {
         val hashedKey = consistenceHashMap.hashKey(key)
-        val (_, hash, physicalNode) = consistenceHashMap.getVirtualNode(key)
+        val physicalNode = consistenceHashMap.getPhysicalNode(key)
 
         val storeClient = physicalAddressClientService.getStoreClient(physicalNode)
         logger.info { "get - key: $key, target physicalNode: $physicalNode" }

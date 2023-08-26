@@ -17,7 +17,7 @@ class StoreUpsertService(
     fun upsert(keyValueStoreDto: KeyValueStoreDto): Boolean {
         val (key, value) = keyValueStoreDto
         val hashedKey = consistenceHashMap.hashKey(key)
-        val (_, hash, physicalNode) = consistenceHashMap.getVirtualNode(key)
+        val physicalNode = consistenceHashMap.getPhysicalNode(key)
         logger.info { "upsert - key: $key, value: $value, target physicalNode: $physicalNode" }
 
         val storeClient = physicalAddressClientService.getStoreClient(physicalNode)

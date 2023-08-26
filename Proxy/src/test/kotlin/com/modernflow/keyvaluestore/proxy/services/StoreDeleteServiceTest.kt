@@ -33,7 +33,7 @@ class StoreDeleteServiceTest(
         val storeClient = mockk<StoreClient>()
 
         every { consistenceHashMap.hashKey(key) } returns hashedKey
-        every { consistenceHashMap.getVirtualNode(key) } returns VirtualNode("0", 0, physicalNode)
+        every { consistenceHashMap.getPhysicalNode(key) } returns physicalNode
         every { physicalAddressClientService.getStoreClient(physicalNode) } returns storeClient
         every { storeClient.delete(hashedKey) } returns true
 
@@ -44,7 +44,7 @@ class StoreDeleteServiceTest(
         assertThat(actual).isTrue
         verify {
             consistenceHashMap.hashKey(key)
-            consistenceHashMap.getVirtualNode(key)
+            consistenceHashMap.getPhysicalNode(key)
             physicalAddressClientService.getStoreClient(physicalNode)
             storeClient.delete(hashedKey)
         }
@@ -59,7 +59,7 @@ class StoreDeleteServiceTest(
         val storeClient = mockk<StoreClient>()
 
         every { consistenceHashMap.hashKey(key) } returns hashedKey
-        every { consistenceHashMap.getVirtualNode(key) } returns VirtualNode("0", 0, physicalNode)
+        every { consistenceHashMap.getPhysicalNode(key) } returns physicalNode
         every { physicalAddressClientService.getStoreClient(physicalNode) } returns storeClient
         every { storeClient.delete(hashedKey) } throws Exception("delete error")
 
@@ -67,7 +67,7 @@ class StoreDeleteServiceTest(
         assertThrows<Exception> { sut.delete(key) }
         verify {
             consistenceHashMap.hashKey(key)
-            consistenceHashMap.getVirtualNode(key)
+            consistenceHashMap.getPhysicalNode(key)
             physicalAddressClientService.getStoreClient(physicalNode)
             storeClient.delete(hashedKey)
         }

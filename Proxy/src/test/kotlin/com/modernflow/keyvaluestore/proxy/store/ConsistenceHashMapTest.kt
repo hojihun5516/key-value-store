@@ -37,8 +37,8 @@ class ConsistenceHashMapTest(
     }
 
     @Test
-    @DisplayName("key가 주어졌을 때 key의 해시값보다 큰 virtual node를 리턴한다")
-    fun `sut should get correct virtual node when key is given`() {
+    @DisplayName("key가 주어졌을 때 physical node를 리턴한다")
+    fun `sut should get correct physical node when key is given`() {
         // Arrange
         every { hash.hash(any()) } returnsMany List(300) { Random().nextLong() }
         val sut = ConsistenceHashMap(hash)
@@ -49,11 +49,10 @@ class ConsistenceHashMapTest(
         every { hash.hash(key) } returns hashValue
 
         // Act
-        val virtualNode = sut.getVirtualNode(key)
+        val physicalNodeAddressDto = sut.getPhysicalNode(key)
 
         // Assert
-        assertThat(virtualNode).isNotNull
-        assertThat(virtualNode.hash).isGreaterThanOrEqualTo(hashValue)
+        assertThat(physicalNodeAddressDto).isNotNull
     }
 
     @Test
@@ -72,11 +71,10 @@ class ConsistenceHashMapTest(
         val expectedPhysicalNode = (circle[circle.firstKey()] as VirtualNode).physicalNode
 
         // Act
-        val virtualNode = sut.getVirtualNode(key)
+        val actual = sut.getPhysicalNode(key)
 
         // Assert
-        assertThat(virtualNode).isNotNull
-        assertThat(virtualNode.physicalNode).isEqualTo(expectedPhysicalNode)
+        assertThat(actual).isEqualTo(expectedPhysicalNode)
     }
 
     @Test

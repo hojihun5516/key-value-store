@@ -37,7 +37,7 @@ class StoreGetServiceTest(
         val expected = KeyValueStoreDto(key, value)
 
         every { consistenceHashMap.hashKey(key) } returns hashedKey
-        every { consistenceHashMap.getVirtualNode(key) } returns VirtualNode("0", 0, physicalNode)
+        every { consistenceHashMap.getPhysicalNode(key) } returns physicalNode
         every { physicalAddressClientService.getStoreClient(physicalNode) } returns storeClient
         every { storeClient.get(hashedKey) } returns StoreValueDto(value)
 
@@ -48,7 +48,7 @@ class StoreGetServiceTest(
         assertThat(actual).isEqualTo(expected)
         verify {
             consistenceHashMap.hashKey(key)
-            consistenceHashMap.getVirtualNode(key)
+            consistenceHashMap.getPhysicalNode(key)
             physicalAddressClientService.getStoreClient(physicalNode)
             storeClient.get(hashedKey)
         }
@@ -63,7 +63,7 @@ class StoreGetServiceTest(
         val storeClient = mockk<StoreClient>()
 
         every { consistenceHashMap.hashKey(key) } returns hashedKey
-        every { consistenceHashMap.getVirtualNode(key) } returns VirtualNode("0", 0, physicalNode)
+        every { consistenceHashMap.getPhysicalNode(key) } returns physicalNode
         every { physicalAddressClientService.getStoreClient(physicalNode) } returns storeClient
         every { storeClient.get(hashedKey) } throws Exception("get error")
 
@@ -71,7 +71,7 @@ class StoreGetServiceTest(
         assertThrows<Exception> { sut.get(key) }
         verify {
             consistenceHashMap.hashKey(key)
-            consistenceHashMap.getVirtualNode(key)
+            consistenceHashMap.getPhysicalNode(key)
             physicalAddressClientService.getStoreClient(physicalNode)
             storeClient.get(hashedKey)
         }

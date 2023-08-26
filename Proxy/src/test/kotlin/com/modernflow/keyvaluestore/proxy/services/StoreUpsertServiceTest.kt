@@ -36,7 +36,7 @@ class StoreUpsertServiceTest(
         val storeClient = mockk<StoreClient>()
 
         every { consistenceHashMap.hashKey(key) } returns hashedKey
-        every { consistenceHashMap.getVirtualNode(key) } returns VirtualNode("0", 0, physicalNode)
+        every { consistenceHashMap.getPhysicalNode(key) } returns physicalNode
         every { physicalAddressClientService.getStoreClient(physicalNode) } returns storeClient
         every { storeClient.upsert(hashedKey, StoreValueDto(value)) } returns true
 
@@ -47,7 +47,7 @@ class StoreUpsertServiceTest(
         assertThat(actual).isTrue
         verify {
             consistenceHashMap.hashKey(key)
-            consistenceHashMap.getVirtualNode(key)
+            consistenceHashMap.getPhysicalNode(key)
             physicalAddressClientService.getStoreClient(physicalNode)
             storeClient.upsert(hashedKey, StoreValueDto(value))
         }
@@ -64,7 +64,7 @@ class StoreUpsertServiceTest(
         val storeClient = mockk<StoreClient>()
 
         every { consistenceHashMap.hashKey(key) } returns hashedKey
-        every { consistenceHashMap.getVirtualNode(key) } returns VirtualNode("0", 0, physicalNode)
+        every { consistenceHashMap.getPhysicalNode(key) } returns physicalNode
         every { physicalAddressClientService.getStoreClient(any()) } returns storeClient
         every { storeClient.upsert(hashedKey, StoreValueDto(value)) } throws Exception("upsert error")
 
@@ -72,7 +72,7 @@ class StoreUpsertServiceTest(
         assertThrows<Exception> { sut.upsert(keyValueStoreDto) }
         verify {
             consistenceHashMap.hashKey(key)
-            consistenceHashMap.getVirtualNode(key)
+            consistenceHashMap.getPhysicalNode(key)
             physicalAddressClientService.getStoreClient(physicalNode)
             storeClient.upsert(hashedKey, StoreValueDto(value))
         }
